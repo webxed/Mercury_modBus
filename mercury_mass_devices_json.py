@@ -1,19 +1,3 @@
-## jq -r '(map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv'
-#jq -r ' .[] | select(.SN==131)' | jq -r '.[] | select(.SN==131) | (map(keys) | add | unique) as $cols | map(. as $row | $cols | map($row[.])) as $rows | $cols, $rows[] | @csv'
-
-# cat 2023-09.json | jq ' .[] | select(.SN==131) | to_entries|map(.value) | @csv'
-
-#cat 2023-09.json | jq ' .[] | select(.SN==131) | [.[]]  | @tsv'
-
-#cat 2023-09.json | jq ' .[] | select(.SN==131) | (keys_unsorted, [.[]]) | @tsv
-
-##  cat 2023-09.json | jq ' .[] | select (.SN==181 and .Time == "00:00") | [.[]]  | @tsv'
-
-## cat 2023-09.json | jq ' .[] | select (.SN==111 and .Time == "00:00") | "\(.SN);\(.Date);\(.EA)"'
-
-## cat 2023-09.json | jq ' .[] | select ((.SN==112 or .SN==111) and .Time == "00:00") | "\(.SN);\(.Date);\(.EA)"'
-
-
 #!/usr/bin/python3
 #-*- coding: utf-8 -*-
 
