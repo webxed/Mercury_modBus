@@ -12,8 +12,11 @@ python3 **mercury_mass_devices_json.py** - script for query Mercury devices over
 JQ https://jqlang.github.io/jq/ data dump to CSV examples:
 
 // select data from one device
+
 `cat 2023-09.json | jq ' .[] | select(.SN==131) | (keys_unsorted, [.[]]) | @tsv`
+
 // select data from two devices and Time 00:00
+
 `cat 2023-09.json | jq ' .[] | select ((.SN==112 or .SN==111) and .Time == "00:00") | "\(.SN);\(.Date);\(.EA)"'`
 
 ----
