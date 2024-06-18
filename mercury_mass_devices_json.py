@@ -116,8 +116,7 @@ class MercuryData:
     # 05 00 00
     # exmp. 83 00 00 0F 08 FF FF FF FF 00 00 DA 00 00 00 C5 03 E5 41
     def getPh( self, out ):
-        #P = out[1:5].lstrip(b'\x83\x00')[::-1];
-        P = out[1:2][::-1] + out[3:5][::-1];
+        P = out[1:3][::-1] + out[3:5][::-1];
         self.ret['EA'] = ( int.from_bytes(P, byteorder='big') / 1000 )
 
     # Текущая температура
@@ -146,6 +145,10 @@ class MercuryData:
         self.ret['U2'] =  int.from_bytes(out[5:7][::-1],  byteorder='big')/100
         self.ret['U3'] =  int.from_bytes(out[8:10][::-1], byteorder='big')/100
 
+    def getA(self, out):
+        self.ret['A1'] =  int.from_bytes(out[2:4][::-1],  byteorder='big')/1000
+        self.ret['A2'] =  int.from_bytes(out[5:7][::-1],  byteorder='big')/1000                 
+        self.ret['A3'] =  int.from_bytes(out[8:10][::-1], byteorder='big')/1000
 
 com = '/dev/ttyr03'
 
