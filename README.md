@@ -13,7 +13,7 @@ JQ https://jqlang.github.io/jq/ data dump to CSV examples:
 
 // select data from one device
 
-`cat 2023-09.json | jq ' .[] | select(.SN==131) | (keys_unsorted, [.[]]) | @tsv`
+`cat 2023-09.json | jq ' .[] | select(.SN==131) | (keys_unsorted, [.[]]) | @tsv'`
 
 // select data from two devices and Time 00:00
 
