@@ -110,7 +110,7 @@ class MercuryData:
     # 05 00 00
     # exmp. 83 00 00 0F 08 FF FF FF FF 00 00 DA 00 00 00 C5 03 E5 41
     def getPh( self, out ):
-        P = out[1:2][::-1] + out[3:5][::-1]
+        P = out[1:3][::-1] + out[3:5][::-1]
         self.ZBXpacket.append( ZabbixMetric(self.Host, 'Ph', self.ret['Ph']) )
     
     # Текущая температура
@@ -150,8 +150,18 @@ class MercuryData:
 
         self.ZBXpacket.append( ZabbixMetric(self.Host, 'U[p1]', self.ret['U']['p1']) )
         self.ZBXpacket.append( ZabbixMetric(self.Host, 'U[p2]', self.ret['U']['p2']) )
-        self.ZBXpacket.append( ZabbixMetric(self.Host, 'U[p3]', self.ret['U']['p3']) )                     
-    
+        self.ZBXpacket.append( ZabbixMetric(self.Host, 'U[p3]', self.ret['U']['p3']) )
+     
+     def getA(self, out):
+        self.ret['A'] = {
+                            'A1' : int.from_bytes(out[2:4][::-1],  byteorder='big')/1000, # ''.join( '{:02x}'.format(c) for c in out[2:4] ),
+                            'A2' : int.from_bytes(out[5:7][::-1],  byteorder='big')/1000,
+                            'A3' : int.from_bytes(out[8:10][::-1], byteorder='big')/1000,
+                        }     
+        self.ZBXpacket.append( ZabbixMetric(self.Host, 'A[a1]', self.ret['A']['a1']) )
+        self.ZBXpacket.append( ZabbixMetric(self.Host, 'A[a2]', self.ret['A']['a2']) )
+        self.ZBXpacket.append( ZabbixMetric(self.Host, 'A[a3]', self.ret['A']['a3']) )
+
 
 com = '/dev/ttyr01'
 
